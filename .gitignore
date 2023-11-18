@@ -1,0 +1,9 @@
+
+client/node_modules
+client/.next
+client/build
+
+
+server/node_modules
+server/public
+server/.env
