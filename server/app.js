@@ -8,7 +8,7 @@ app.use(mongoSanitize());
 
 //! rate limit
 const limit = require('./middlewares/lib/rateLimit')
-app.use('/api/v1',limit)
+//app.use('/api/v1',limit)
 
 //! moment
 const moment = require('moment-timezone')

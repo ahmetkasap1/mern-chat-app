@@ -11,4 +11,4 @@ const cors = (req,callback) => {
     callback(null, corsOptions)
 }
 
-module.exports = cors
+module.exports = cors   
