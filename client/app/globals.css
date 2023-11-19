@@ -10,3 +10,24 @@
     transition-duration: 2s;   /* 1sn de gerçekleşsin */
     animation-iteration-count: infinite;
 }
+
+.scrollable-container {
+    margin-top: 10px;
+    max-height: 85%; /* veya istediğiniz bir yükseklik */
+    overflow-x: auto;
+
+
+}
+/* Webkit tarayıcıları için scrollbar özelleştirmesi */
+.scrollable-container::-webkit-scrollbar {
+    width: 8px; /* scrollbar genişliği */
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+    background-color: #7c8086; /* scrollbar rengi */
+    border-radius: 6px; /* scrollbar köşe yarıçapı */
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+    background-color: #cbd5e0; /* scrollbar izleme alanı rengi */
+}
