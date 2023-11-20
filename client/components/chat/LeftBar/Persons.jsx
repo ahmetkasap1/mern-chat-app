@@ -15,7 +15,7 @@ const Persons = () => {
                         <FaArrowDown className=' font-light text-gray-600' />
                     </div>
                 </div>
-               
+                
             </div>
 
 
