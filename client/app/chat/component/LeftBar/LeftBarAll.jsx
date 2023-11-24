@@ -7,7 +7,7 @@ import Persons from './Persons'
 const LeftBarAll = () => {
     return (
         <>
-            <div className='bg-white w-full h-[90vh]  rounded-lg p-5'>
+            <div className='bg-slate-900 w-full h-[90vh]  rounded-lg p-5'>
                 <div className='flex flex-row items-center justify-between mb-2'>
                     <Profile></Profile>
                     <Settings></Settings>

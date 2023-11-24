@@ -15,7 +15,7 @@ const MainContent = () => {
                 </div>
                 <hr />
 
-                <div className='mt-16 scrollable-container'>
+                <div className='mt-16 scrollable-container p-2'>
                     <div className="h-auto w-96 ml-auto mt-2 rounded-2xl bg-green-500 flex flex-row items-end justify-between">
                         <p className="p-3 font-sans text-white text-lg w-full">Lorem</p>
                         <span className="mr-2 text-white text-sm">22.39</span>
