@@ -5,10 +5,6 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
 
-
-
-
-
 const Profile = async () => {
   const token = Cookies.get('token')
 
@@ -52,16 +48,6 @@ const Profile = async () => {
     }
     
 
-
-
-    
-
-
-
-  
-
-  
-
   return (
     <>
       <button onClick={() => setControl(true)}>
@@ -82,8 +68,6 @@ const Profile = async () => {
                 <input  onChange={(e) =>setUpdateAvatar(e.target.files[0])} type='file' className='border-2 rounded-lg mt-8 mb-8 h-12 text-white ' />
                 <span className='text-white text-lg font-roboto'>Fotoğraf Düzenle</span>
               </div>
-              
-              
               <button onClick={() => editAvatar()} className='w-24 p-3 border-2 rounded-lg text-white hover:bg-gray-600 '>Kaydet</button>
             </div>
            
@@ -92,14 +76,7 @@ const Profile = async () => {
 
         )
       }
-      
-       
-
-
-      
-
-
-
+     
     </>
   )
 }

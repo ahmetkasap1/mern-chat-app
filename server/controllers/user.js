@@ -49,7 +49,6 @@ const getAvatar = async(req,res) => {
 const editAvatar = async (req,res) => {
     const user = await User.findById(req.user._id)  //?token göre kullanıcı bulma
     let file = req.savedImages[0]
-    console.log(file)
    
     if(!user) throw new APIError('Kullanıcı bulunamadı', 401)
 
