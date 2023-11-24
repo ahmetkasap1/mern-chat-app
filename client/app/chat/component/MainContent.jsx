@@ -7,7 +7,7 @@ const MainContent = () => {
         <>
             <div className='bg-slate-900 w-full h-[90vh] rounded-lg p-5 flex flex-col'>
                 <div className='flex flex-row items-center gap-6 mb-4'>
-                    <Image src="/user.png" width={50} height={50}></Image>
+                    <Image src="/user.png" width={50} height={50} alt='user'></Image>
                     <h1 className='text-white font-roboto'>User Name</h1>
                     <div className='flex flex-grow items-end justify-end'>
                         <HiOutlineDotsVertical className='w-8 h-6 text-white' />

@@ -11,6 +11,11 @@ const upload = require('../middlewares/lib/multer')
 router.post('/register', authValidations.register, userControllers.register)
 router.post('/login', authValidations.login, userControllers.login)
 
+router.get('/avatar', authMiddlewares.checkToken, userControllers.getAvatar)
+router.put('/avatar', authMiddlewares.checkToken, upload.array('avatar',1), userControllers.editAvatar)
+
+
+
 router.get('/test', authMiddlewares.checkToken, userControllers.test)
 
 router.post('/upload', upload.array('avatar',3), userControllers.uploadTest)

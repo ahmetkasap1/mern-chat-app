@@ -38,7 +38,7 @@ const page = async ({ params }) => {
       {
         loading ? (
           <div className=' bg-gray-900 h-[100vh] w-full flex flex-row items-center justify-center '>
-            <Image width={200} height={200} src='/logo.png' className=''/>
+            <Image width={200} height={200} src='/logo.png' alt="logo" className=''/>
           </div>
         ): error ? (
           <div className='bg-gray-900 h-[100vh] w-full flex flex-row items-start justify-center'>

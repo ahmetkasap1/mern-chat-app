@@ -39,6 +39,30 @@ const login = async (req, res) => {
     else  return new Response(null, 'Giriş Bilgileri Hatalı').c_400(res)    
 }
 
+const getAvatar = async(req,res) => {
+    const user = await User.findOne({ email: req.user.email })
+    if(user) 
+        return new Response(user, 'avatar').success(res)
+}
+
+
+const editAvatar = async (req,res) => {
+    const user = await User.findById(req.user._id)  //?token göre kullanıcı bulma
+    let file = req.savedImages[0]
+    console.log(file)
+   
+    if(!user) throw new APIError('Kullanıcı bulunamadı', 401)
+
+    const result = await User.findByIdAndUpdate(user._id, {$set : {'avatar' : file}}, { new: true })
+    return new Response(result, 'Güncellenen kullancı avatarı').success(res)
+    
+}
+
+
+
+
+
+
 
 const test = async (req, res) => {
     return new Response(null, 'test! yetki var.').success(res)
@@ -120,5 +144,5 @@ const resetPassword = async(req,res) => {
 
 
 module.exports = {
-    register, login, test, uploadTest, forgotPassword,forgotPasswordCheckCode,resetPassword
+    register, login, test, uploadTest, forgotPassword,forgotPasswordCheckCode,resetPassword,getAvatar,editAvatar
 }
