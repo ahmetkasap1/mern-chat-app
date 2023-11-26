@@ -1,9 +1,14 @@
 import React from 'react'
 
-const Button = () => {
+const Button = (props) => {
+
   return (
     <>
-        <button className=''> </button>
+        <button className='text-lg outline-none border-gray-600 text-white border p-2 w-24 rounded-lg hover:bg-slate-800'>
+          {
+            props.buttonName 
+          }
+        </button>
 
     </>
   )

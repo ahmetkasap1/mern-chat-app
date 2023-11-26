@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { FaArrowDown } from "react-icons/fa";
 
+import { openChat } from '@/redux/features/chat';
+import {useSelector, useDispatch} from 'react-redux'
+
 
 const Search = () => {
-
   const [search, setSearch] = useState()
   const [found, setFound] = useState()
 
@@ -23,7 +25,20 @@ const Search = () => {
     api()
   }, [search])
 
-  console.log("found", found)
+
+  //* bulunan kullanıcıya göre sohbet ekranının açılması için controller değişkenin redux ile doldurulması.
+
+  const dispatch = useDispatch()
+  const controller = useSelector((state) => state.chat.controller)
+
+  const foundUserName =  (username) => {
+    dispatch(openChat(username))
+  }
+
+
+
+
+
 
   //focus:absolute focus:w-[22.3%] focus:left-[13.4%] focus:top-[15.3%]
   return (
@@ -41,8 +56,9 @@ const Search = () => {
             <div className='scrollable-container m-2 ml-[15px]'>
               {
                 found && found.data && found.data.map(res => {
+
                   return(
-                    <div className='mt-4 border border-slate-700 hover:bg-slate-800 rounded-lg h-16 p-2 mr-2 flex flex-row items-center gap-8 '>
+                    <button onClick={() => foundUserName(res.username)} className='mt-4 border  w-[98%] border-slate-700 hover:bg-slate-800 rounded-lg h-16 p-2 mr-2 flex flex-row items-center gap-8 '>
                       <Image width={50} height={50} src={"http://localhost:5000/uploads/"+res.avatar} alt='user' className=''></Image>
                       <h1 className=' font-roboto text-white'>
                         {
@@ -52,7 +68,7 @@ const Search = () => {
                       <div className='flex flex-grow items-end justify-end'>
                           <FaArrowDown className=' font-light text-gray-400' />
                       </div>
-                    </div>
+                    </button>
                   )
 
 
