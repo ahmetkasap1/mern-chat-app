@@ -14,6 +14,9 @@ router.post('/login', authValidations.login, userControllers.login)
 router.get('/avatar', authMiddlewares.checkToken, userControllers.getAvatar)
 router.put('/avatar', authMiddlewares.checkToken, upload.array('avatar',1), userControllers.editAvatar)
 
+router.get('/:username', userControllers.getUser)
+
+
 
 
 router.get('/test', authMiddlewares.checkToken, userControllers.test)

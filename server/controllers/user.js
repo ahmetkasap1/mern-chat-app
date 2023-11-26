@@ -41,8 +41,9 @@ const login = async (req, res) => {
 
 const getAvatar = async(req,res) => {
     const user = await User.findOne({ email: req.user.email })
-    if(user) 
-        return new Response(user, 'avatar').success(res)
+    if(user) return new Response(user, 'avatar').success(res)
+    else throw new APIError('Kullanıcı bulunamadı', 401)
+
 }
 
 
@@ -56,6 +57,24 @@ const editAvatar = async (req,res) => {
     return new Response(result, 'Güncellenen kullancı avatarı').success(res)
     
 }
+
+
+
+
+
+const getUser = async (req,res) => {
+    const searching = req.params.username
+
+    const users = await User.find({ username: { $regex: `^${searching}`, $options: 'i' } }).limit(5);
+
+    if(users) return new Response(users, 'bulunan kullanıcılar').success(res)
+    else throw new APIError('kullanıcı bulunamadı',404)
+
+}
+
+
+
+
 
 
 
@@ -143,5 +162,5 @@ const resetPassword = async(req,res) => {
 
 
 module.exports = {
-    register, login, test, uploadTest, forgotPassword,forgotPasswordCheckCode,resetPassword,getAvatar,editAvatar
+    register, login, test, uploadTest, forgotPassword,forgotPasswordCheckCode,resetPassword,getAvatar,editAvatar,getUser
 }

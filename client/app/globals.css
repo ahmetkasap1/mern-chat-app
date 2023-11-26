@@ -10,6 +10,11 @@
     transition-duration: 2s;   /* 1sn de gerçekleşsin */
     animation-iteration-count: infinite;
 }
+.edit-avatar-animation{
+    transform: scale(1.05);      /* Nesne üzerine gelince 1.5 kat büyüsün */
+    transition-duration: 2s;   /* 1sn de gerçekleşsin */
+    animation-iteration-count: infinite;
+}
 
 .scrollable-container {
     margin-top: 10px;
