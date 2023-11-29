@@ -57,7 +57,7 @@ const Profile = async () => {
 
       {control === true && (
         <div id='toogle' className=' flex flex-row items-center justify-start  '>
-          <div className='bg-slate-700 w-[24.3%] h-[960px] rounded-xl flex flex-col absolute left-[12.5%] top-[6.1%]'>
+          <div className='bg-slate-700 left-[5.0%] h-[92vh] w-[29.3%] rounded-xl flex flex-col absolute top-[6.1%]'>
             <button
               className='text-sm text-white font-roboto bg-black hover:bg-gray-900 p-2 rounded-xl w-16 ml-auto mt-2 mr-2'
               onClick={() => setControl(false)}

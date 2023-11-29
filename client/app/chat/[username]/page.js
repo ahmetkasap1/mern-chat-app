@@ -45,7 +45,7 @@ const page = async ({ params }) => {
             <h1 className='text-gray-200 text-5xl'>Böyle bir sayfa mevcut değil</h1>
           </div>
         ) : isAuth ? (
-            <div className='w-3/4 mx-auto flex flex-row mt-16 gap-8'>
+            <div className='w-[90%] mx-auto flex flex-row mt-16 gap-8'>
               <div className='w-1/2'>
                 <LeftBarAll></LeftBarAll>
               </div>

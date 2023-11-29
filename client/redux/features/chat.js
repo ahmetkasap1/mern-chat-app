@@ -9,10 +9,10 @@ const initialState = {
 }
 
 
-const token = Cookies.get('token')
 
 export const openChat = createAsyncThunk('openChat', async(username) => {
-    console.log(username)
+    const token =  Cookies.get('token')
+
     const response = await fetch(`http://localhost:5000/api/v1/chat/${username}`, {
         method : 'GET',
         headers : {
@@ -29,6 +29,7 @@ export const chatSlice = createSlice({
     name : 'chat',
     initialState,
     reducers : {
+        
     
     },
     extraReducers : (builder) => {
@@ -40,5 +41,6 @@ export const chatSlice = createSlice({
     }
 
 })
+
 
 export default chatSlice.reducer

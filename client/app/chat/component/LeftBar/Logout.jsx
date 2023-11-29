@@ -15,7 +15,7 @@ const Logout = () => {
     
   return (
     <>
-        <button onClick={() => logout()}  className='text-white p-2 border-2 rounded-full hover:bg-slate-800 font-roboto'>  Çıkış Yap </button>
+        <button onClick={() => logout()}  className='text-white p-2 bg-gray-800 border-2 rounded-full hover:bg-slate-900 font-roboto'>  Çıkış Yap </button>
     </>
   )
 }

@@ -57,6 +57,7 @@ const Index = () => {
 
     if(response.success === true) {
 
+
       Cookies.set('token', response.data.token)
       Cookies.set('username',response.data.user.username )
 
@@ -77,7 +78,7 @@ const Index = () => {
 
         {
           control === true ? (
-            <div className='w-1/3 '>
+            <div className='basis-1/3 '>
               <div className=' w-full h-auto bg-white  flex flex-col border-2  rounded-2xl  p-8  shadow-lg shadow-gray-500'>
                 <h1 className='mt-4 mb-8 text-gray-800 text-2xl font-roboto  '>Log In</h1>
 
@@ -93,7 +94,7 @@ const Index = () => {
             </div>
 
           ) : (
-            <div className='w-1/3' >
+            <div className='basis-1/2' >
               <div className=' w-full h-auto bg-white  flex flex-col border-2  rounded-2xl  p-8  shadow-lg shadow-gray-500'>
                 <h1 className='mt-4 mb-8 text-gray-800 text-2xl font-roboto  '>Sign Up</h1>
 
@@ -114,7 +115,7 @@ const Index = () => {
           )
         }
 
-        <div className='flex flex-col gap-16'>
+        <div className='basis-1/2 flex flex-col gap-16'>
           <h1 className='text-7xl  text-center  text-white'> Her zaman, her yerde birlikte takılın  </h1>
           <h1 className='text-2xl  text-center  text-gray-400'> React, en sevdiğiniz kişilerle bağlantıda kalmanızı kolay ve eğlenceli hale getirir.  </h1>
         </div>
