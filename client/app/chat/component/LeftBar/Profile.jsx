@@ -51,7 +51,7 @@ const Profile = async () => {
   return (
     <>
       <button onClick={() => setControl(true)}>
-        <Image src={"http://localhost:5000/uploads/"+avatar} width={75} height={75} className='rounded-full ' alt='avatar'/>
+        <Image src={"http://localhost:5000/uploads/"+avatar} width={50} height={50} className='rounded-full ' alt='avatar'/>
       </button>
 
 

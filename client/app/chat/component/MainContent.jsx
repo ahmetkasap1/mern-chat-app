@@ -15,6 +15,7 @@ const MainContent = () => {
   const [receiverUsername, setReceiverUsername] = useState()
   const publisherUsername = Cookies.get('username')
   const [socket, setSocket] = useState()
+  const token = Cookies.get('token')
 
   //* mesaj gönderilecek username'i aldık
   useEffect(() => {
@@ -42,29 +43,93 @@ const MainContent = () => {
 
   //* mesagı gönderdik.
   const sendMessage = async () => {
+    const date = new Date()
+    const hours = date.getHours() + ":" + date.getMinutes()
+
     const message = await inputRef.current.value
-    setMessages((prevMessages) => [...prevMessages, { sender: 'publish', message }])
-    await socket.emit('message', { publisherUsername, receiverUsername, socketId: socket.id, message })
+    setMessages((prevMessages) => [...prevMessages, { sender: 'publish', message, hours }])
+    await socket.emit('message', { publisherUsername, receiverUsername, socketId: socket.id, message, hours })
+
+    //* database kayıt
+
+    const messageStructure = {
+      message : [
+        {senderUsername : publisherUsername, messages : message}
+      ],
+      chatId : [publisherUsername, receiverUsername]
+    }
+
+    const api = await fetch('http://localhost:5000/api/v1/chat/message', {
+      method : 'POST',
+      headers : {
+        'Content-Type' : 'application/json',
+        Authorization : `Bearer ${token}`
+      },
+      
+      body : JSON.stringify(messageStructure)
+    })
+    const response = await api.json()
+    console.log("response", response)
+    
+
   }
 
   //*gelen mesajı yakaladık
   useEffect(() => {
     if (socket) {
       socket.on('recive-message', (data) => {
-        setMessages((prevMessages) => [...prevMessages, { sender: 'recive', message: data.message }])
+        setMessages((prevMessages) => [...prevMessages, { sender: 'recive', message: data.message, hours: data.hours }])
       });
     }
   }, [socket])
 
 
-  
+  //*mesajlaşılacak kullanıcı değiştirildiğinde state boşalt.
+  useEffect(() => {
+    setMessages("")
+    setOldMessages("")
+  },[controller])
+
+  console.log("messages", messages)
+
+  //* veri tabanından gelen mesajlar
+
+  const [oldMessages, setOldMessages] = useState([])
+
+  useEffect(() => {
+    const api = async() => {
+      console.log("girdi1")
+      const response = await fetch(`http://localhost:5000/api/v1/chat/message/m?senderUsername=${publisherUsername}&reciverUsername=${receiverUsername}`, {
+        method : 'GET',
+        headers : {
+          Authorization : `Bearer ${token}`
+        }
+      })
+
+      const returnData = await response.json()
+      console.log("returnData",returnData)
+
+      if(returnData.success === true) {
+        returnData.data.message.map(messages => {
+          setOldMessages((prevMessages) => [...prevMessages, messages ])
+        })
+      }
+      
+    }
+    api()
+
+   
+
+  },[ receiverUsername])
+
+  console.log("oldMessages", oldMessages)
 
   return (
     <>
       {controller && controller.data ? (
         <div className='bg-gradient-to-r from-gray-900 to-gray-600  w-full h-[90vh] rounded-lg p-5 flex flex-col'>
           <div className='flex flex-row items-center gap-6 mb-4'>
-            <Image src={'http://localhost:5000/uploads/' + controller.data[0].avatar} width={50} height={50} alt='user' />
+            <Image className='rounded-full' src={'http://localhost:5000/uploads/' + controller.data[0].avatar} width={50} height={50} alt='user' />
             <h1 className='text-white font-roboto'>{controller.data[0].username}</h1>
             <div className='flex flex-grow items-end justify-end'>
               <HiOutlineDotsVertical className='w-8 h-6 text-white' />
@@ -73,19 +138,34 @@ const MainContent = () => {
           <hr />
 
           <div className='mt-16 scrollable-container p-2'>
-            {messages.map((data, index) => (
-             <div key={index} className="flex flex-row items-end gap-2 ">
-             <p className={`
-             h-auto p-3 text-white    ml-${data.sender === 'recive' ? 'auto' : '0'} mt-2 rounded-2xl ${
-                data.sender === 'recive' ? 'mr-auto bg-red-500' : 'ml-auto bg-blue-500'
-              } f`}>{data.message}
-                <span className='mr-2 text-gray-300 text-[10px] m-2 '>22.39</span>
-            </p>
-             
-           </div>
+            {oldMessages && oldMessages.map((message, index) => {
+              return(
+                <div key={index} className={`flex flex-row items-end gap-2 ${message.senderUsername === publisherUsername ? 'justify-end' : 'justify-start'}`}>
+                <p className={`h-auto p-3 text-white ml-${message.senderUsername === publisherUsername ? 'auto' : '0'} mt-2 rounded-2xl ${message.senderUsername === publisherUsername ? 'bg-blue-500' : 'bg-red-500'}`}>
+                  {message.messages}
+                </p>
+              </div>
+              
+              
+
+              )
            
+              
+            })}
+
+
+            {messages && messages.map((data, index) => (
+              <div key={index} className={`flex flex-row items-end gap-2 ${data.sender === 'recive' ? 'justify-start' : 'justify-end'}`}>
+                <p className={`h-auto p-3 text-white ml-${data.sender === 'recive' ? '0' : 'auto'} mt-2 rounded-2xl ${data.sender === 'recive' ? 'bg-red-500' : 'bg-blue-500'
+                  } f`}>
+                  {data.message}
+                  <span className='mr-2 text-gray-300 text-[10px] m-2 '>{data.hours}</span>
+                </p>
+              </div>
             ))}
           </div>
+
+
 
           <div className='mt-auto flex flex-row gap-4'>
             <textarea

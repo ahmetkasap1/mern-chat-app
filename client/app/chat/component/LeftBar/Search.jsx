@@ -59,7 +59,7 @@ const Search = () => {
 
                   return(
                     <button onClick={() => foundUserName(res.username)} className='mt-4 border bg-slate-800  w-[98%] border-slate-700 hover:bg-slate-900 rounded-lg h-16 p-2 mr-2 flex flex-row items-center gap-8 '>
-                      <Image width={50} height={50} src={"http://localhost:5000/uploads/"+res.avatar} alt='user' className=''></Image>
+                      <Image width={50} height={50} src={"http://localhost:5000/uploads/"+res.avatar} alt='user' className='rounded-full'></Image>
                       <h1 className=' font-roboto text-white'>
                         {
                           res.username

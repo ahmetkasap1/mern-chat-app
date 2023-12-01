@@ -24,10 +24,9 @@ io.on('connection', (socket) => {  //* socket sunucusuna connection isimli bir e
     })
 
     socket.on('message', data => {
-        //console.log("allOnlineUsersssss", allOnlineUsers)
-        //console.log(data)
+        console.log("allOnlineUsersssss", allOnlineUsers)
         const user = allOnlineUsers.find((user) => user.receiverUsername === data.receiverUsername)
-        //console.log("reciverUser", user)
+        console.log("reciverUser", user)
 
         if(user) {
            io.to(user.socketId).emit('recive-message',data)
