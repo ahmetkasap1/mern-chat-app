@@ -15,7 +15,6 @@ const getChatScreen = async(req,res) => {
 }
 const sendMessage = async(req,res) => {  
 
-   console.log(req.body)
 
     const user = await User.findOne({_id : req.user._id})
     if(!user) throw new APIError('yetkisiz işlem', 401) 
@@ -41,7 +40,6 @@ const sendMessage = async(req,res) => {
             userRef : req.user._id.toString()
         })
         const response = await chat.save()
-        console.log(response)
     }
    
    
@@ -54,7 +52,6 @@ const getMessage = async (req,res) => {
     const user = await User.findOne({_id : req.user._id})
     if(!user) throw new APIError('yetkisiz işlem', 401)
 
-    console.log(req.query)
 
 
     const chat = await Chat.findOne({$and : [{chatId : req.query.senderUsername} , {chatId : req.query.reciverUsername}]  } )
@@ -66,8 +63,41 @@ const getMessage = async (req,res) => {
 
 } 
 
+const getPersons = async (req,res) =>{
+
+    const user = await User.findOne({_id : req.user._id})
+    if(!user) throw new APIError('yetkisiz işlem', 401)
+
+    const data = await Chat.find({chatId :req.params.chatId }).select('chatId')
+    
+    let foundUsername = []
+    data.forEach(res => {
+        res.chatId.map(data => {
+            if(data !== req.params.chatId) foundUsername.push(data)
+        })
+    })
+    
+    if(!foundUsername) throw new APIError('kaynak yok', 404)
+
+    const foundUser = await User.find({username : foundUsername}).select('username avatar')
+    if(!foundUser) throw new APIError('kullanıcı bulunamadı', 404)
+
+    return new Response(foundUser, 'kullanıcının mesajlaştığı diğer kullancılıar').success(res)
+
+
+
+
+        
+  
+
+    
+
+
+
+
+}
 
 
 module.exports = {
-    getChatScreen,sendMessage,getMessage
+    getChatScreen,sendMessage,getMessage, getPersons
 }

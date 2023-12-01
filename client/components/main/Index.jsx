@@ -117,7 +117,7 @@ const Index = () => {
 
         <div className='basis-1/2 flex flex-col gap-16'>
           <h1 className='text-7xl  text-center  text-white'> Her zaman, her yerde birlikte takılın  </h1>
-          <h1 className='text-2xl  text-center  text-gray-400'> React, en sevdiğiniz kişilerle bağlantıda kalmanızı kolay ve eğlenceli hale getirir.  </h1>
+          <h1 className='text-2xl  text-center  text-gray-400'> MTA, en sevdiğiniz kişilerle bağlantıda kalmanızı kolay ve eğlenceli hale getirir.  </h1>
         </div>
 
       </div>

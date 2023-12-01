@@ -49,6 +49,7 @@ const MainContent = () => {
     const message = await inputRef.current.value
     setMessages((prevMessages) => [...prevMessages, { sender: 'publish', message, hours }])
     await socket.emit('message', { publisherUsername, receiverUsername, socketId: socket.id, message, hours })
+    inputRef.current.value=""
 
     //* database kayıt
 
@@ -69,7 +70,6 @@ const MainContent = () => {
       body : JSON.stringify(messageStructure)
     })
     const response = await api.json()
-    console.log("response", response)
     
 
   }
@@ -90,7 +90,6 @@ const MainContent = () => {
     setOldMessages("")
   },[controller])
 
-  console.log("messages", messages)
 
   //* veri tabanından gelen mesajlar
 
@@ -98,7 +97,6 @@ const MainContent = () => {
 
   useEffect(() => {
     const api = async() => {
-      console.log("girdi1")
       const response = await fetch(`http://localhost:5000/api/v1/chat/message/m?senderUsername=${publisherUsername}&reciverUsername=${receiverUsername}`, {
         method : 'GET',
         headers : {
@@ -107,7 +105,6 @@ const MainContent = () => {
       })
 
       const returnData = await response.json()
-      console.log("returnData",returnData)
 
       if(returnData.success === true) {
         returnData.data.message.map(messages => {
@@ -120,9 +117,8 @@ const MainContent = () => {
 
    
 
-  },[ receiverUsername])
+  },[receiverUsername])
 
-  console.log("oldMessages", oldMessages)
 
   return (
     <>
